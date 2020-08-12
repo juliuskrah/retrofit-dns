@@ -1,11 +1,11 @@
 # Using a Custom DNS Resolver in Retrofit
 
-This project contains a demo that illustrates using a custom DNS resolver in Retrofit2.
+This project contains a demo that illustrates using a custom DNS resolver in `Retrofit2`.
 
 In this demo are two applications:
 
--[x] Service - A Spring Boot Server Side app
--[x] Android - An Android app that communicates with the Server Side app using a custom domain name
+- [x] Service - A Spring Boot Server Side app 
+- [x] Android - An Android app that communicates with the Server Side app using a custom domain name
 
 ## Installation and running
 
@@ -30,11 +30,11 @@ class CustomDns : Dns {
             "foo.theshop.com",
             "bar.theshop.com",
             "dulcet.theshop.com",
-            "aparel.theshop.com" // add your custom domain here
+            "aparel.theshop.com" // <- add your custom domain here
         )
         if (BuildConfig.DEBUG && customDomains.contains(hostname)) {
             Log.i("CustomDns", "Adding custom dns")
-            addresses.add(InetAddress.getByName("192.168.100.6")) // replace the IP here with your actual IP
+            addresses.add(InetAddress.getByName("192.168.100.6")) // <- replace the IP here with your actual IP
         }
         return addresses
     }
@@ -42,3 +42,25 @@ class CustomDns : Dns {
 ```
 
 Import the project `android` into Android Studio and start the project. Voila, you're done
+
+```kotlin
+interface DemoService {
+    @GET("/")
+    fun name(): Call<Example>
+
+    companion object {
+        fun create(): DemoService {
+            val retrofit: Retrofit = Retrofit.Builder()
+                .client(
+                    OkHttpClient.Builder()
+                        .dns(CustomDns())
+                        .build()
+                )
+                .baseUrl("http://theshop.com:8080/") // <- update as necessary
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            return retrofit.create(DemoService::class.java)
+        }
+    }
+}
+```

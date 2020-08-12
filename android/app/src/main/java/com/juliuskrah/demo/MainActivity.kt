@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val random: Random = Random(5)
 
     private val demoApiServe by lazy {
-        DemoService.create()
+        ExampleService.create()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

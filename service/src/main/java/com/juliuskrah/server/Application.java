@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.juliuskrah.server;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
@@ -22,13 +22,13 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
-public class DemoApplication implements WebFilter {
-	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
+public class Application implements WebFilter {
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	private String[] list = { "Deborah", "Freda", "Fakyiwa", "Loretta", "Bevelyn" };
 	private Random random = new Random();
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Bean
@@ -38,7 +38,7 @@ public class DemoApplication implements WebFilter {
 
 	Mono<ServerResponse> handle(ServerRequest request) {
 		var example = new Example();
-		example.name = list[random.nextInt(list.length)];
+		example.setName(list[random.nextInt(list.length)]);
 		log.info("Sending - {}", example.getName());
 		return ServerResponse.ok().body(fromValue(example));
 	}

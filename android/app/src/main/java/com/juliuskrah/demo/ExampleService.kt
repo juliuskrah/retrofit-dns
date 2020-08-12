@@ -7,22 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 
-
-
-interface DemoService {
+interface ExampleService {
     @GET("/")
     fun name(): Call<Example>
 
     companion object {
-        fun create(): DemoService {
+        fun create(): ExampleService {
             val retrofit: Retrofit = Retrofit.Builder()
-                .client(OkHttpClient.Builder()
-                    .dns(CustomDns())
-                    .build())
-                .baseUrl("http://theshop.com:8080/")
+                .client(
+                    OkHttpClient.Builder()
+                        .dns(ExampleDns())
+                        .build()
+                )
+                .baseUrl("http://aparel.jaesoft.com:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-            return retrofit.create(DemoService::class.java)
+            return retrofit.create(ExampleService::class.java)
         }
     }
 }
