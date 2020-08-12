@@ -1,0 +1,15 @@
+{
+  "hostname": "jaesoft.com",
+  "customDomains": [
+    "theshop.com",
+    "jaesoft.com",
+    "bar.jaesoft.com",
+    "foo.jaesoft.com",
+    "dulcet.jaesoft.com",
+    "aparel.jaesoft.com"
+  ],
+  "ip4Addresses": [
+    "192.168.100.6",
+    "10.200.108.131"
+  ]
+}
